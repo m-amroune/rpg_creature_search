@@ -8,6 +8,18 @@ const pokemonName =  document.querySelector("#creature-name");
 const pokemonId =  document.querySelector("#creature-id");
 const pokemonWeight =  document.querySelector("#weight");
 const pokemonHeight =  document.querySelector("#height");
+const typeSpans = document.querySelectorAll("#types .type")
+const specialName = document.querySelector("#special-name");
+const specialDescription = document.querySelector("#special-description");
+
+  const typesElement = document.querySelector("#types");
+
+const hp = document.querySelector("#hp"); 
+const attack = document.querySelector("#attack");  
+const defense = document.querySelector("#defense");  
+const specialAttack = document.querySelector("#special-attack");  
+const specialDefense = document.querySelector("#special-defense");  
+const speed = document.querySelector("#speed");
 
 
 
@@ -51,8 +63,32 @@ async function getCreaturesDetails(id){
 const displayCreature = (creature) => {
   pokemonName.textContent = creature.name;
   pokemonId.textContent = `#${creature.id}`;
-  pokemonWeight.textContent = creature.weight;
-  pokemonHeight.textContent = creature.height;
+  pokemonWeight.textContent = `Weight : ${creature.weight}`;
+  pokemonHeight.textContent = `Height : ${creature.height}`;
+  specialName.textContent =  creature.special.name;
+  specialDescription.textContent = creature.special.description;
+
+
+
+
+
+typesElement.innerHTML = "";
+
+creature.types.forEach(type=> {
+  const span = document.createElement("span");
+  span.classList.add("type");
+  span.textContent = type.name.toUpperCase(); 
+  typesElement.appendChild(span);
+});
+
+
+ hp.textContent = creature.stats[0].base_stat;
+ attack.textContent = creature.stats[1].base_stat;
+defense.textContent = creature.stats[2].base_stat;
+ specialAttack.textContent = creature.stats[3].base_stat;
+ specialDefense.textContent = creature.stats[4].base_stat;
+ speed.textContent = creature.stats[5].base_stat;
+
 };
 
 // SEARCH IN INPUT BY ID OR NAME
@@ -69,7 +105,7 @@ const handleSearch = async (event) => {
   );
 
   if (!match) {
-    console.log("Creature not found");
+    alert("Creature not found");
     return;
   }
   // CALL FUNCTION DETAILS FOR ONE CREATURE
