@@ -11,7 +11,7 @@ const pokemonHeight =  document.querySelector("#height");
 
 
 
-
+// GET API DATA FOR CREATURES LIST
 async function getCreatures(){
     try{
         const response = await fetch(`https://rpg-creature-api.freecodecamp.rocks/api/creatures/`);
@@ -28,9 +28,9 @@ async function getCreatures(){
 
 }
 
+// GET API DATA FOR ONE CREATURE DETAILS
 async function getCreaturesDetails(id){
     try{
-        console.log("📤 ID utilisé dans fetch :", id);
         const response = await fetch(`https://rpg-creature-api.freecodecamp.rocks/api/creature/${id}`);
         
         if(!response.ok){
@@ -47,8 +47,7 @@ async function getCreaturesDetails(id){
 
 
 
-
-
+// DISPLAY DETAILS FOR ONE CREATURE
 const displayCreature = (creature) => {
   pokemonName.textContent = creature.name;
   pokemonId.textContent = `#${creature.id}`;
@@ -56,8 +55,10 @@ const displayCreature = (creature) => {
   pokemonHeight.textContent = creature.height;
 };
 
+// SEARCH IN INPUT BY ID OR NAME
 const handleSearch = async (event) => {
   event.preventDefault();
+  // CALL FUNCTION LIST OF CREATURES
   const creatures = await getCreatures();
   const searchInput = InputPokemons.value.toLowerCase();
 
@@ -71,12 +72,13 @@ const handleSearch = async (event) => {
     console.log("Creature not found");
     return;
   }
+  // CALL FUNCTION DETAILS FOR ONE CREATURE
     const details = await getCreaturesDetails(match.id || match.name);
     displayCreature(details);
 
 };
 
 
-
+// EVENT SEARCH CREATURE BY CLICK
 searchBtn.addEventListener("click", handleSearch);
 
