@@ -68,10 +68,6 @@ const displayCreature = (creature) => {
   specialName.textContent =  creature.special.name;
   specialDescription.textContent = creature.special.description;
 
-
-
-
-
 typesElement.innerHTML = "";
 
 creature.types.forEach(type=> {
